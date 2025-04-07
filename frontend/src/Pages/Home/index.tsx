@@ -1,17 +1,10 @@
-//import React from 'react'
-
-//import { UserButton, useUser } from "@clerk/clerk-react"
-import Header from "../../components/custom/Header";
+import HomeWrapper from "../../components/custom/HomeWrapper";
 
 function HomePage() {
-  // const {isSignedIn} = useUser();
-  // if(isSignedIn){
-  //   return <UserButton/>
-  // }
-
   return (
     <div>
-      <Header/>
+      <HomeWrapper/>
+      Landing Page
     </div>
   )
 }
