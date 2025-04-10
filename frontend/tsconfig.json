@@ -9,9 +9,16 @@
     }
   ],
   "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "allowJs": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@service/*": ["./service/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true
