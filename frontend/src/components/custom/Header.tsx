@@ -6,8 +6,7 @@ function Header() {
 
   return (
     <div className="flex justify-between shadow-md">
-      <img
-        src="src/assets/logo.png"
+      <img src="src/assets/logo.png"
         width={100}
         height={100}
         alt="site-logo image"
@@ -15,7 +14,7 @@ function Header() {
 
       <div className="flex gap-2 items-center">
         <Link to={"/dashboard"}>
-        <Button variant={"outline"}>Dashboard</Button>
+          <Button variant={"outline"}>Dashboard</Button>
         </Link>
         <UserButton />
       </div>

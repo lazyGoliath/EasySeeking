@@ -392,16 +392,12 @@ export interface ApiUserResumeUserResume extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     resumeId: Schema.Attribute.String & Schema.Attribute.Required;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     userEmail: Schema.Attribute.Email & Schema.Attribute.Required;
-    userName: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    userName: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 

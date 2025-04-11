@@ -14,7 +14,7 @@
     "title": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "resumeId": {
       "type": "string",
@@ -23,7 +23,7 @@
     "userName": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "userEmail": {
       "type": "email",

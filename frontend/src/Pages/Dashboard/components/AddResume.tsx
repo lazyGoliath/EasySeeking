@@ -12,32 +12,41 @@ import { Button } from "../../../components/ui/button";
 import { v4 as uuidv4 } from 'uuid';
 import GlobalApi from "C:/Users/HP/OneDrive/Documents/backupDocs/dev/AI-resume/EasySeeking/frontend/service/GlobalApi.js"
 import { useUser } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 
 function AddResume() {
 
   const [openDialog, setOpenDialog] = useState(false);
-  const [ resumeTitle, setResumeTitle ] = useState<string | undefined>(undefined);
+  const [resumeTitle, setResumeTitle] = useState<string | undefined>(undefined);
   const { user } = useUser();
-  const [ loading, setLoading ] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigate();
 
   const onCreate = () => {
+
     setLoading(true);
     const uuid = uuidv4();
-    
+
     const data = {
       data: {
-        title : resumeTitle,
-        resumeId : uuid,
-        userEmail : user?.primaryEmailAddress?.emailAddress,
-        userName : user?.fullName
+        title: resumeTitle,
+        resumeId: uuid,
+        userEmail: user?.primaryEmailAddress?.emailAddress,
+        userName: user?.fullName
       }
     }
-    GlobalApi.createNewResume(data).then(resp =>{
+    
+    console.log("User data:", user);
+    console.log("Data to be sent:", data);
+
+    GlobalApi.CreateNewResume(data).then(resp => {
       console.log(resp)
-      if(resp){
+      if (resp) {
         setLoading(false);
+        navigation('/dashboard/resume/'+uuid+'/edit');
       }
-    },(error) =>{
+    }, (error) => {
+      console.log(error)
       setLoading(false);
     });
   }
@@ -57,18 +66,18 @@ function AddResume() {
           <DialogHeader>
             <DialogTitle>Create New Resume</DialogTitle>
             <DialogDescription>
-              <p>Add a new title for your Resume</p>
-              <Input className="my-2" placeholder="Eg. FullStack resume..."
-              onChange={(e) => setResumeTitle(e.target.value)}/>
+              Add a new title for your Resume
+              <Input className="mt-2" placeholder="Eg. FullStack resume..."
+                onChange={(e) => setResumeTitle(e.target.value)} />
             </DialogDescription>
             <div className="flex justify-end gap-10">
-              <Button variant="ghost" onClick={() => {setOpenDialog(false);}}>
+              <Button variant="ghost" onClick={() => { setOpenDialog(false); }}>
                 Cancel
               </Button>
               <Button disabled={!resumeTitle || loading} onClick={() => onCreate()} className="bg-[#9f5bff]">
-                {loading? <Loader2 className="animate-spin" /> : "Create Resume"}
+                {loading ? <Loader2 className="animate-spin" /> : "Create Resume"}
               </Button>
-            </div>  
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>
