@@ -1,9 +1,4 @@
-function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
-  console.log(resumeInfo);
-  console.log(resumeInfo?.experience);
-  const Experience = resumeInfo?.experience;
-  //console.log(Experience[0])
-
+function EducationPreview({ resumeInfo }) {
   return (
     <div className="my-5">
       <h2
@@ -12,7 +7,7 @@ function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
           color: resumeInfo?.themeColor,
         }}
       >
-        Professional Experience
+        Education
       </h2>
       <hr
         style={{
@@ -20,7 +15,7 @@ function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
         }}
       />
 
-      {resumeInfo?.experience.map((experience: any, index: number) => {
+      {resumeInfo?.education.map((education: any, index: number) => {
         return (
           <div key={index} className="my-3">
             <h2
@@ -29,16 +24,15 @@ function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
                 color: resumeInfo?.themeColor,
               }}
             >
-              {experience?.title}
+              {education?.universityName}
             </h2>
             <h2 className="text-xs flex justify-between">
-              {experience?.companyName}, {experience?.city}, {experience?.state}
+              {education?.degree} in {education?.major}
               <span>
-                {experience?.startDate} -{" "}
-                {experience?.currentlyWorking ? "Present" : experience?.endDate}
+                {education?.startDate} - {education?.endDate}
               </span>
             </h2>
-            <p className="text-xs my-1">{experience?.workSummery}</p>
+            <p className="text-xs my-1">{education?.description}</p>
           </div>
         );
       })}
@@ -46,4 +40,4 @@ function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
   );
 }
 
-export default ProfessionalExperiencePreview;
+export default EducationPreview;

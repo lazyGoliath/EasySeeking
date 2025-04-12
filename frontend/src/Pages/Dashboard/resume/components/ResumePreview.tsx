@@ -3,8 +3,8 @@ import { ResumeInfoContext } from "../../../../context/ResumeContextInfo"
 import PersonalDetailsPreview from "./preview/PersonalDetailsPreview"
 import SummaryPreview from "./preview/SummaryPreview"
 import ProfessionalExperiencePreview from "./preview/ProfessionalExperiencePreview"
-import EducationPreview from "./EducationPreview"
-import SkillsPreview from "./SkillsPreview"
+import EducationPreview from "./preview/EducationPreview"
+import SkillsPreview from "./preview/SkillsPreview"
 
 function ResumePreview() {
 
