@@ -2,6 +2,9 @@ import { Notebook } from "lucide-react"
 import { Link } from "react-router-dom"
 
 function ResumeCardItem({ resume }: { resume: any }) {
+    console.log("INSIDE ResumeCardItem.tsx")
+    console.log("Resume-ID :"+resume.resumeId)
+    console.log("Document-ID :"+resume.documentId)
     return (
         <div>
             <Link to={'/dashboard/resume/:'+resume.resumeId+'/edit'}>

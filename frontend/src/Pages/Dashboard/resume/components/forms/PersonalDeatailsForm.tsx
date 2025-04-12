@@ -1,15 +1,33 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ResumeInfoContext } from "../../../../../context/ResumeContextInfo"
 import { Input } from "../../../../../components/ui/input"
 import { Button } from "../../../../../components/ui/button"
+import { useParams } from "react-router-dom"
+import GlobalApi from "C:/Users/HP/OneDrive/Documents/backupDocs/dev/AI-resume/EasySeeking/frontend/service/GlobalApi.js"
+import { LoaderCircle } from "lucide-react"
 
-function PersonalDeatailsForm() {
+function PersonalDeatailsForm({enabledNext}) {
 
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
+  const params = useParams();
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const [ formData, setFormData ] = useState()
+  const [ loading, setLoading ] = useState(false)
+
+  useEffect(() =>{
+    console.log(params)
+  },[])
+
   const handleInputChange = (e) =>{
+
+    enabledNext(false)
+
     const {name, value} = e.target;
 
     // console.log(name, value)
+    setFormData({
+      ...formData,
+      [name]: value
+    })
 
     setResumeInfo({
       ...resumeInfo,
@@ -17,14 +35,30 @@ function PersonalDeatailsForm() {
     })
   }
   const onSave = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
+    setLoading(true)
+
+    const data = {
+      data:formData
+    }
+
+    console.log(data)
+
+    GlobalApi.UpdateResumeDetail(params?.resumeId,data).then(resp=>{
+      console.log(resp)
+      enabledNext(true)
+      setLoading(false)
+    },(error)=>{
+      setLoading(false)
+      enabledNext(true)
+    })
   }
 
   return (
     <div className="p5- shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <h2 className="text-lg font-bold">Personal Deatails</h2>
       <p>Get started with the basic information.</p>
-      <form onSubmit={onSave}>
+      <form onSubmit={onSave} action="#">
         <div className="grid grid-cols-2 mt-5 gap-3">
           <div>
             <label className="text-sm">First Name</label>
@@ -52,7 +86,8 @@ function PersonalDeatailsForm() {
           </div>
         </div>
         <div className="mt-3 flex justify-end p-2">
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={loading}>
+            {loading? <LoaderCircle className="animate-spin"/> : 'Save'}</Button>
         </div>
       </form>
     </div>

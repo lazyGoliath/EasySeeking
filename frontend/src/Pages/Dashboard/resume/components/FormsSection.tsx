@@ -11,6 +11,8 @@ function FormsSection({resumeInfo}:{resumeInfo:any}) {
 
   const [ activeFormIndex, setActiveFromIndex ] = useState(1);
 
+  const [ enableNext, setEnableNext ] = useState(false);
+
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -19,13 +21,14 @@ function FormsSection({resumeInfo}:{resumeInfo:any}) {
           {activeFormIndex>1 && <Button size={"sm"} onClick={() => setActiveFromIndex(activeFormIndex-1)}>
             <ArrowLeft/>
           </Button>}
-          <Button className="flex gap-2" size={"sm"} onClick={() => setActiveFromIndex(activeFormIndex+1)}>
+          <Button className="flex gap-2" size={"sm"} disabled={!enableNext}
+            onClick={() => setActiveFromIndex(activeFormIndex+1)}>
             <ArrowRight/>
           </Button>
         </div>
       </div>
       {/* Personal Detail  */}
-      {activeFormIndex==1 ? <PersonalDeatailsForm /> : null}
+      {activeFormIndex==1 ? <PersonalDeatailsForm enabledNext={(v) =>setEnableNext(v)} /> : null}
 
       {/* Summary */}
       {activeFormIndex==2 ? <SummaryForm /> : null}
