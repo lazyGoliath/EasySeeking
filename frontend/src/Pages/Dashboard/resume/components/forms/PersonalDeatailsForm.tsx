@@ -13,11 +13,11 @@ function PersonalDeatailsForm({enabledNext}) {
   const [ formData, setFormData ] = useState()
   const [ loading, setLoading ] = useState(false)
 
-  useEffect(() =>{
-    console.log(params)
-  },[])
+  useEffect(() => {
+    console.log("Params:", params);
+  }, []);
 
-  const handleInputChange = (e) =>{
+  const handleInputChange = (e: { target: { name: any; value: any } }) =>{
 
     enabledNext(false)
 
@@ -36,15 +36,21 @@ function PersonalDeatailsForm({enabledNext}) {
   }
   const onSave = (e) => {
     e.preventDefault();
+
+    if (!params?.resumeId) {
+      console.error("Resume ID is missing!");
+      return;
+    }
+
     setLoading(true)
 
     const data = {
       data:formData
     }
 
-    console.log(data)
+    console.log("Data being sent:", data);
 
-    GlobalApi.UpdateResumeDetail(params?.resumeId,data).then(resp=>{
+    GlobalApi.UpdateResumeDetail(params.resumeId,data).then(resp=>{
       console.log(resp)
       enabledNext(true)
       setLoading(false)
