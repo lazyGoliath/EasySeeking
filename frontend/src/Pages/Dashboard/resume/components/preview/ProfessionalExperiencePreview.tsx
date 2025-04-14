@@ -34,11 +34,11 @@ function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
             <h2 className="text-xs flex justify-between">
               {experience?.companyName}, {experience?.city}, {experience?.state}
               <span>
-                {experience?.startDate} -{" "}
+                {experience?.startDate} to {" "}
                 {experience?.currentlyWorking ? "Present" : experience?.endDate}
               </span>
             </h2>
-            <p className="text-xs my-1">{experience?.workSummery}</p>
+            <p className="text-xs my-1">{experience?.workSummary}</p>
           </div>
         );
       })}
