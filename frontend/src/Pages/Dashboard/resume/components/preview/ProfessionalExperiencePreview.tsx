@@ -1,9 +1,7 @@
 function ProfessionalExperiencePreview({ resumeInfo }: { resumeInfo: any }) {
   console.log(resumeInfo);
-  console.log(resumeInfo?.experience);
-  const Experience = resumeInfo?.experience;
-  //console.log(Experience[0])
-
+  console.log("Printing Experience preview : ", resumeInfo?.experience);
+  
   return (
     <div className="my-5">
       <h2

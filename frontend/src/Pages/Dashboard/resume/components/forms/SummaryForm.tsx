@@ -7,7 +7,7 @@ import { Button } from "../../../../../components/ui/button";
 import { Textarea } from "../../../../../components/ui/textarea";
 import { AIChatSession } from "../../../../../../service/AiModel";
 
-const prompt="Job Title: {jobTitle} , Depends on job title give me list of  summary for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summary and experience_level Field in JSON Format"
+const prompt="Generate a JSON array of {jobTitle} job role summaries for the following experience levels: 1. Entry-level (Freshers) 2. Mid-level 3. Senior-level. For each experience level, provide the following fields: - experience_level: The title of the experience level (e.g., 'Entry-level', 'Mid-level', 'Senior-level'). - summary: A brief 3-4 line description of the key responsibilities, skills, and qualifications expected at that experience level. The output should be in JSON format: [{ 'experience_level': 'Entry-level', 'summary': 'A fresh graduate or early professional with a focus on learning key skills and assisting in daily tasks. Responsibilities may include basic research, data collection, and shadowing senior colleagues.' }, { 'experience_level': 'Mid-level', 'summary': 'An individual with 3-5 years of experience who handles more independent tasks and contributes to project management. Expected to have proficiency in relevant tools and methodologies.' }, { 'experience_level': 'Senior-level', 'summary': 'An experienced professional with 7+ years in the field, responsible for leading projects, mentoring junior staff, and making strategic decisions. Requires deep expertise and leadership skills.' }]"
 function SummaryForm({enabledNext}) {
     const {resumeInfo,setResumeInfo}=useContext(ResumeInfoContext);
     const [summary,setSummary]=useState();
@@ -33,6 +33,8 @@ function SummaryForm({enabledNext}) {
     }
 
     const onSave=(e)=>{
+
+        console.log("SUBMITTING THE SUMMARY FORM : "+summary);
         e.preventDefault();
        
         setLoading(true)

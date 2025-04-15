@@ -19,24 +19,28 @@ import {
     Toolbar,
 } from "react-simple-wysiwyg";
 import { Button } from "../../../../components/ui/button";
+import { AIChatSession } from "../../../../../service/AiModel";
 
 
 const PROMPT =
-  "position titile: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experince level and No JSON array) , give me result in HTML tags";
+  "Based on the provided position title {positionTitle}, generate 5-7 bullet points for the work experience section of a resume. Each bullet point should highlight key responsibilities, achievements, or skills related to the role, avoiding the inclusion of experience level or personal details. The output should be in HTML format, with each bullet point wrapped in <li> tags. Ensure the summary is tailored to the position title and reflects common tasks or responsibilities for that role";
 function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
   const [value, setValue] = useState(defaultValue);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [loading, setLoading] = useState(false);
   const GenerateSummaryFromAI = async () => {
-    if (!resumeInfo?.Experience[index]?.title) {
+    
+    if (!resumeInfo?.experience[index]?.positionTitle) {
       //toast("Please Add Position Title");
       return;
     }
     setLoading(true);
     const prompt = PROMPT.replace(
         "{positionTitle}",
-        resumeInfo.Experience[index].title
+        resumeInfo.experience[index].positionTitle
     );
+
+    console.log("Prompt passed to AI experience summary : ", prompt);
 
     const result = await AIChatSession.sendMessage(prompt);
     console.log(result.response.text());
