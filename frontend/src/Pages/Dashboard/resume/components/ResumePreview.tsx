@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { ResumeInfoContext } from "../../../../context/ResumeContextInfo"
 import PersonalDetailsPreview from "./preview/PersonalDetailsPreview"
 import SummaryPreview from "./preview/SummaryPreview"
@@ -7,13 +7,16 @@ import EducationPreview from "./preview/EducationPreview"
 import SkillsPreview from "./preview/SkillsPreview"
 
 function ResumePreview() {
+  const { resumeInfo } = useContext(ResumeInfoContext)
 
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
+  if (!resumeInfo) {
+    return null;
+  }
 
   return (
     <div className="shadow-lg h-full p-14 border-t-[20px]"
     style={{
-      borderColor:resumeInfo?.themeColor
+      borderColor:resumeInfo.themeColor
     }}>
       {/* Personal Detail  */}
       <PersonalDetailsPreview resumeInfo={resumeInfo}/>

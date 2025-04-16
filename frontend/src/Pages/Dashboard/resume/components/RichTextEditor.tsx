@@ -1,6 +1,5 @@
 import { Brain, LoaderCircle } from "lucide-react";
 import { useContext, useState } from "react";
-import { ResumeInfoContext } from "../../../../../../frontend/src/context/ResumeContextInfo"
 //import { AiChatSession } from ""
 import {
     BtnBold,
@@ -18,15 +17,21 @@ import {
     Separator,
     Toolbar,
 } from "react-simple-wysiwyg";
-import { Button } from "../../../../components/ui/button";
 import { AIChatSession } from "../../../../../service/AiModel";
+import { ResumeInfoContext } from "../../../../context/ResumeContextInfo";
+import { Button } from "../../../../components/ui/button";
 
+interface RichTextEditorProps {
+    onRichTextEditorChange: (event: any) => void;
+    index: number;
+    defaultValue: string;
+}
 
 const PROMPT =
   "Based on the provided position title {positionTitle}, generate 5-7 bullet points for the work experience section of a resume. Each bullet point should highlight key responsibilities, achievements, or skills related to the role, avoiding the inclusion of experience level or personal details. The output should be in HTML format, with each bullet point wrapped in <li> tags. Ensure the summary is tailored to the position title and reflects common tasks or responsibilities for that role";
-function RichTextEditor({ onRichTextEditorChange, index, defaultValue }) {
+function RichTextEditor({ onRichTextEditorChange, index, defaultValue }: RichTextEditorProps) {
   const [value, setValue] = useState(defaultValue);
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const { resumeInfo } = useContext(ResumeInfoContext);
   const [loading, setLoading] = useState(false);
   const GenerateSummaryFromAI = async () => {
     

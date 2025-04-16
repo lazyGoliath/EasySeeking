@@ -3,8 +3,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  //DropdownMenuLabel,
+  //DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./../../../components/ui/dropdown-menu";
 import {
@@ -16,7 +16,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  //AlertDialogTrigger,
 } from "./../../../components/ui/alert-dialog";
 import GlobalApi from "../../../../service/GlobalApi";
 import { useState } from "react";
@@ -39,6 +39,8 @@ function ResumeCardItem({ resume, refreshData }: { resume: any; refreshData: any
         setOpenAlert(false);
       },
       (error) => {
+        console.error("Error deleting resume");
+        console.error(error);
         setLoading(false);
       }
     );

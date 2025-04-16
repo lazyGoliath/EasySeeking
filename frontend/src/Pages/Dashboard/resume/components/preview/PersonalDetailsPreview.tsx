@@ -1,4 +1,10 @@
-function PersonalDetailsPreview({resumeInfo}) {
+import { ResumeInfo } from "../../../../../context/ResumeContextInfo"
+
+interface PersonalDetailsPreviewProps {
+    resumeInfo: ResumeInfo;
+}
+
+function PersonalDetailsPreview({ resumeInfo }: PersonalDetailsPreviewProps) {
   return (
     <div>
         <h2 className="font-bold text-xl text-center"

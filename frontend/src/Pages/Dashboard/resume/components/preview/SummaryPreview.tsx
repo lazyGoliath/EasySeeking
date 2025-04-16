@@ -1,6 +1,10 @@
-import React from 'react'
+import { ResumeInfo } from "../../../../../context/ResumeContextInfo"
 
-function SummaryPreview({resumeInfo}) {
+interface SummaryPreviewProps {
+    resumeInfo: ResumeInfo;
+}
+
+function SummaryPreview({ resumeInfo }: SummaryPreviewProps) {
   return (
     <p className='text-xs'>
       {resumeInfo?.summary}

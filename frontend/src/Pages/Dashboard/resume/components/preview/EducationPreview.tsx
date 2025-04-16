@@ -1,4 +1,10 @@
-function EducationPreview({ resumeInfo }) {
+import { ResumeInfo } from "../../../../../context/ResumeContextInfo"
+
+interface EducationPreviewProps {
+    resumeInfo: ResumeInfo;
+}
+
+function EducationPreview({ resumeInfo }: EducationPreviewProps) {
   return (
     <div className="my-5">
       <h2

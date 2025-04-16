@@ -1,6 +1,10 @@
-import React from 'react'
+import { ResumeInfo } from "../../../../../context/ResumeContextInfo"
 
-function SkillsPreview({resumeInfo}) {
+interface SkillsPreviewProps {
+    resumeInfo: ResumeInfo;
+}
+
+function SkillsPreview({ resumeInfo }: SkillsPreviewProps) {
   return (
     <div className="my-5">
       <h2

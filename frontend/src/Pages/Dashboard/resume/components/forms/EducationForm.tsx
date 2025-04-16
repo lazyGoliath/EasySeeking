@@ -8,164 +8,167 @@ import { Textarea } from "../../../../../components/ui/textarea";
 //import { AIChatSession } from "../../../../../../service/AiModel";
 import { Input } from "../../../../../components/ui/input";
 
-function EducationForm({ enabledNext }) {
-  const [loading, setLoading] = useState(false);
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-  const params = useParams();
-  const [educationalList, setEducationalList] = useState([
-    {
-      id: 0,
-      universityName: "",
-      degree: "",
-      major: "",
-      startDate: "",
-      endDate: "",
-      description: "",
-    },
-  ]);
+interface EducationFormProps {
+    enabledNext: (value: boolean) => void;
+}
 
-  useEffect(() => {
-    resumeInfo && setEducationalList(resumeInfo?.education);
-  }, []);
-  const handleChange = (event, index) => {
-    const newEntries = educationalList.slice();
-    const { name, value } = event.target;
-    newEntries[index][name] = value;
-    setEducationalList(newEntries);
-  };
+interface EducationEntry {
+    id: number;
+    universityName: string;
+    degree: string;
+    major: string;
+    startDate: string;
+    endDate: string;
+    description: string;
+}
 
-  const AddNewEducation = () => {
-    setEducationalList([
-      ...educationalList,
-      {
-        id: 0,
-        universityName: "",
-        degree: "",
-        major: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-      },
+function EducationForm({ enabledNext }: EducationFormProps) {
+    const [loading, setLoading] = useState(false);
+    const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+    const params = useParams();
+    const [educationalList, setEducationalList] = useState<EducationEntry[]>([
+        {
+            id: 0,
+            universityName: "",
+            degree: "",
+            major: "",
+            startDate: "",
+            endDate: "",
+            description: "",
+        },
     ]);
-  };
-  const RemoveEducation = () => {
-    setEducationalList((educationalList) => educationalList.slice(0, -1));
-  };
-  const onSave = () => {
-    setLoading(true);
-    const data = {
-      data: {
-        education: educationalList.map(({ id, ...rest }) => rest),
-      },
+
+    useEffect(() => {
+        if (resumeInfo?.education) {
+            setEducationalList(resumeInfo.education);
+        }
+    }, []);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+        const newEntries = [...educationalList];
+        const { name, value } = event.target;
+        newEntries[index] = {
+            ...newEntries[index],
+            [name]: value
+        };
+        setEducationalList(newEntries);
     };
 
-    GlobalApi.UpdateResumeDetail(params.resumeId, data).then(
-      (resp) => {
-        console.log(resp);
-        setLoading(false);
-        //toast('Details updated !')
-      },
-      (error) => {
-        setLoading(false);
-        //toast('Server Error, Please try again!')
-      }
-    );
-  };
+    const AddNewEducation = () => {
+        setEducationalList([
+            ...educationalList,
+            {
+                id: 0,
+                universityName: "",
+                degree: "",
+                major: "",
+                startDate: "",
+                endDate: "",
+                description: "",
+            },
+        ]);
+    };
 
-  useEffect(() => {
-    setResumeInfo({
-      ...resumeInfo,
-      education: educationalList,
-    });
-  }, [educationalList]);
-  return (
-    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-      <h2 className="font-bold text-lg">Educational Info</h2>
-      <p>Add Your educational details</p>
+    const RemoveEducation = () => {
+        setEducationalList(educationalList => educationalList.slice(0, -1));
+    };
 
-      <div>
-        {educationalList.map((item, index) => (
-          <div>
-            <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
-              <div className="col-span-2">
-                <label>University Name</label>
-                <Input
-                  name="universityName"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.universityName}
-                />
-              </div>
-              <div>
-                <label>Degree</label>
-                <Input
-                  name="degree"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.degree}
-                />
-              </div>
-              <div>
-                <label>Major</label>
-                <Input
-                  name="major"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.major}
-                />
-              </div>
-              <div>
-                <label>Start Date</label>
-                <Input
-                  type="date"
-                  name="startDate"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.startDate}
-                />
-              </div>
-              <div>
-                <label>End Date</label>
-                <Input
-                  type="date"
-                  name="endDate"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.endDate}
-                />
-              </div>
-              <div className="col-span-2">
-                <label>Description</label>
-                <Textarea
-                  name="description"
-                  onChange={(e) => handleChange(e, index)}
-                  defaultValue={item?.description}
-                />
-              </div>
+    const onSave = () => {
+        setLoading(true);
+        const data = {
+            data: {
+                education: educationalList.map(({ id, ...rest }) => rest),
+            },
+        };
+
+        GlobalApi.UpdateResumeDetail(params.resumeId, data).then(
+            resp => {
+                console.log(resp);
+                setLoading(false);
+                enabledNext(true);
+            },
+            error => {
+                console.error(error);
+                setLoading(false);
+            }
+        );
+    };
+
+    useEffect(() => {
+        if (setResumeInfo && resumeInfo) {
+            setResumeInfo({
+                ...resumeInfo,
+                education: educationalList,
+            });
+        }
+    }, [educationalList]);
+
+    return (
+        <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+            <h2 className="font-bold text-lg">Educational Info</h2>
+            <p>Add Your educational details</p>
+            <div className="mt-5">
+                {educationalList.map((education, index) => (
+                    <div key={index} className="mb-5 p-4 border rounded-lg">
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                            <Input
+                                placeholder="University Name"
+                                name="universityName"
+                                value={education.universityName}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                            <Input
+                                placeholder="Degree"
+                                name="degree"
+                                value={education.degree}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                            <Input
+                                placeholder="Major"
+                                name="major"
+                                value={education.major}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                            <Input
+                                placeholder="Start Date"
+                                name="startDate"
+                                value={education.startDate}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                            <Input
+                                placeholder="End Date"
+                                name="endDate"
+                                value={education.endDate}
+                                onChange={(e) => handleChange(e, index)}
+                            />
+                        </div>
+                        <Textarea
+                            placeholder="Description"
+                            name="description"
+                            value={education.description}
+                            onChange={(e) => handleChange(e, index)}
+                            className="mb-4"
+                        />
+                    </div>
+                ))}
+                <div className="flex justify-between">
+                    <div className="flex gap-2">
+                        <Button type="button" onClick={AddNewEducation}>
+                            Add Education
+                        </Button>
+                        {educationalList.length > 1 && (
+                            <Button type="button" variant="outline" onClick={RemoveEducation}>
+                                Remove Last
+                            </Button>
+                        )}
+                    </div>
+                    <Button onClick={onSave} disabled={loading}>
+                        {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
+                    </Button>
+                </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-between">
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={AddNewEducation}
-            className="text-primary"
-          >
-            {" "}
-            + Add More Education
-          </Button>
-          <Button
-            variant="outline"
-            onClick={RemoveEducation}
-            className="text-primary"
-          >
-            {" "}
-            - Remove
-          </Button>
         </div>
-        <Button disabled={loading} onClick={() => onSave()}>
-          {loading ? <LoaderCircle className="animate-spin" /> : "Save"}
-        </Button>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default EducationForm;

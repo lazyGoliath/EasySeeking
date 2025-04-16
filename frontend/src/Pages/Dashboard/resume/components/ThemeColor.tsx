@@ -6,10 +6,11 @@ import {
 import { Button } from "./../../../../components/ui/button";
 import { LayoutGrid } from "lucide-react";
 import { useContext, useState } from "react";
-import { ResumeInfoContext } from "../../../../context/ResumeContextInfo";
 import { useParams } from "react-router-dom";
-import GlobalApi from "../../../../../service/GlobalApi";
 import { toast } from "sonner";
+import GlobalApi from "../../../../../service/GlobalApi";
+import { ResumeInfoContext } from "../../../../context/ResumeContextInfo";
+
 
 function ThemeColor() {
   const colors = [
@@ -35,22 +36,34 @@ function ThemeColor() {
     "#335AFF",
   ];
 
+  const [selectedColor, setSelectedColor] = useState<string>('#000000');
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-  const [selectedColor, setSelectedColor] = useState();
-  const { resumeId } = useParams();
-  
+  const params = useParams();
+
+  // const onColorChange = (color: string) => {
+  //   setSelectedColor(color);
+  //   if (resumeInfo && setResumeInfo) {
+  //     setResumeInfo({
+  //       ...resumeInfo,
+  //       themeColor: color
+  //     });
+  //   }
+  // };
+
   const onColorSelect = (color: string) => {
     setSelectedColor(color);
-    setResumeInfo({
-      ...resumeInfo,
-      themeColor: color,
-    });
+    if (resumeInfo && setResumeInfo) {
+      setResumeInfo({
+        ...resumeInfo,
+        themeColor: color
+      });
+    }
     const data = {
       data: {
-        themeColor: color,
-      },
+        themeColor: color
+      }
     };
-    GlobalApi.UpdateResumeDetail(resumeId, data).then((resp) => {
+    GlobalApi.UpdateResumeDetail(params.resumeId, data).then((resp) => {
       console.log(resp);
       toast("Theme Color Updated");
     });
