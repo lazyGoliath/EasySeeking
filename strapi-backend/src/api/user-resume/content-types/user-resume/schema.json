@@ -52,6 +52,21 @@
     "jobTitle": {
       "type": "string",
       "required": false
+    },
+    "summary": {
+      "type": "text"
+    },
+    "education": {
+      "displayName": "education",
+      "type": "component",
+      "repeatable": false,
+      "component": "education.education"
+    },
+    "experience": {
+      "displayName": "experience",
+      "type": "component",
+      "repeatable": false,
+      "component": "experience.experience"
     }
   }
 }

@@ -385,7 +385,9 @@ export interface ApiUserResumeUserResume extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    education: Schema.Attribute.Component<'education.education', false>;
     email: Schema.Attribute.String;
+    experience: Schema.Attribute.Component<'experience.experience', false>;
     firstName: Schema.Attribute.String;
     jobTitle: Schema.Attribute.String;
     lastName: Schema.Attribute.String;
@@ -398,6 +400,7 @@ export interface ApiUserResumeUserResume extends Struct.CollectionTypeSchema {
     phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resumeId: Schema.Attribute.String & Schema.Attribute.Required;
+    summary: Schema.Attribute.Text;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

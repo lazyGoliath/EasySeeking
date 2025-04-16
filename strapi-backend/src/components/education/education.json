@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_education_educations",
+  "info": {
+    "displayName": "education",
+    "icon": "moon"
+  },
+  "options": {},
+  "attributes": {
+    "degree": {
+      "type": "string"
+    },
+    "major": {
+      "type": "string"
+    },
+    "startDate": {
+      "type": "string"
+    },
+    "endDate": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "universityName": {
+      "type": "string"
+    }
+  }
+}
