@@ -34,7 +34,7 @@ function DashboardPage() {
                 <AddResume/>
                 {/* && added as it may cause error due to latency in fetching data from backend */}
                 {resumeList.length>0 && resumeList.map((resume, index) => (
-                    <ResumeCardItem key={index} resume={resume}/>
+                    <ResumeCardItem key={index} resume={resume} resumeData={GetUserResumeList}/>
                 ))}
             </div>
         </div>

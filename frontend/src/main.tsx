@@ -8,6 +8,7 @@ import DashboardPage from './Pages/Dashboard';
 import { ClerkProvider } from '@clerk/clerk-react'
 import HomePage from './Pages/Home';
 import EditResume from './Pages/Dashboard/resume/[resumeId]/edit';
+import ViewResume from './my-resume/[resumeId]/view';
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -27,6 +28,7 @@ root.render(
           <Route path="/dashboard/resume/:resumeId/edit" element={<EditResume />} />
         </Route>
         <Route path="/auth/signin" element={<SignInPage />} />
+        <Route path="/my-resume/:resumeId/view" element={<ViewResume />} />
       </Routes>
     </ClerkProvider>
   </BrowserRouter>

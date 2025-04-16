@@ -5,7 +5,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "C:/Users/HP/OneDrive/Documents/backupDocs/dev/AI-resume/EasySeeking/frontend/src/components/ui/dialog.tsx";
+} from "./../../../components/ui/dialog";
 import { Input } from "C:/Users/HP/OneDrive/Documents/backupDocs/dev/AI-resume/EasySeeking/frontend/src/components/ui/input.tsx";
 import { useState } from "react";
 import { Button } from "../../../components/ui/button";
